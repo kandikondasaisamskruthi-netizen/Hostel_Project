@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Page Name</title>
+    <title>Food Rating</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
 </head>
 <body>
-    <!-- templates/rating.html -->
-<form method="POST" class="rating-form"></form>
-<link rel="stylesheet" href="/static/style.css">
 
 <div class="navbar">
     <h2>Food Rating</h2>
@@ -24,7 +21,7 @@
             Share your feedback about hostel food quality
         </p>
 
-        <form method="POST">
+        <form method="POST" class="rating-form">
 
             <select name="rating" required>
                 <option value="">Select Rating</option>
@@ -43,5 +40,6 @@
     </div>
 
 </div>
+
 </body>
 </html>

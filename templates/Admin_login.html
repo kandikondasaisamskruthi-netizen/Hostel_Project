@@ -1,25 +1,39 @@
-<link rel="stylesheet" href="/static/style.css">
+```html
+<!-- Admin_login.html -->
 
-<div class="login-page">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>
 
-    <div class="login-box">
+<div class="navbar">
+    <h2>Admin Login</h2>
+    <a href="/" class="logout-btn">Back</a>
+</div>
+
+<div class="dashboard-page">
+
+    <div class="form-box">
 
         <h1>Admin Login</h1>
         <p>Use admin credentials</p>
 
-        <form method="POST">
+        <form method="POST" class="login-form">
 
-            <input 
-                type="text" 
-                name="username" 
-                placeholder="Enter Username" 
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter Username"
                 required
             >
 
-            <input 
-                type="password" 
-                name="password" 
-                placeholder="Enter Password" 
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter Password"
                 required
             >
 
@@ -32,3 +46,7 @@
     </div>
 
 </div>
+
+</body>
+</html>
+```

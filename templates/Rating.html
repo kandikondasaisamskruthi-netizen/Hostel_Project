@@ -1,0 +1,38 @@
+<!-- templates/rating.html -->
+<form method="POST" class="rating-form"></form>
+<link rel="stylesheet" href="/static/style.css">
+
+<div class="navbar">
+    <h2>Food Rating</h2>
+    <a href="/student_dashboard" class="logout-btn">Back</a>
+</div>
+
+<div class="dashboard-page">
+
+    <div class="form-box">
+
+        <h2>Rate Hostel Food</h2>
+
+        <p>
+            Share your feedback about hostel food quality
+        </p>
+
+        <form method="POST">
+
+            <select name="rating" required>
+                <option value="">Select Rating</option>
+                <option value="Excellent">Excellent</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+            </select>
+
+            <button type="submit">
+                Submit Rating
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

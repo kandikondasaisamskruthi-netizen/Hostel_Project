@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Complaints</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <h2>Student Complaints</h2>
+    <a href="/admin_dashboard" class="btn">Back</a>
+</div>
+
+<div class="dashboard-container">
+
+    <div class="module-box">
+        <h1>Student Complaints</h1>
+
+        <table class="complaint-table">
+            <tr>
+                <th>ID</th>
+                <th>Roll No</th>
+                <th>Complaint</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for complaint in complaints %}
+            <tr>
+                <td>{{ complaint[0] }}</td>
+                <td>{{ complaint[1] }}</td>
+                <td>{{ complaint[2] }}</td>
+                <td>{{ complaint[3] }}</td>
+                <td>
+                    <a href="/resolve/{{ complaint[0] }}" class="btn">
+                        Resolve
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

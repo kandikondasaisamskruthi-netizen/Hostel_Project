@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complaint Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>
+
+<div class="status-page">
+
+    <div class="status-box">
+        <h1>Complaint Status</h1>
+        <h2>Your Complaint Updates</h2>
+
+        <table class="status-table">
+            <thead>
+                <tr>
+                    <th>Complaint</th>
+                    <th>Status</th>
+                    <th>Notification</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+
+        <td>{{ row[1] }}</td>
+
+        <td>
+            {% if row[1] == "Resolved" %}
+                Your complaint has been resolved.
+            {% else %}
+                Your complaint is under review.
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+        </table>
+
+        <br>
+
+        <a href="/student_dashboard" class="back-btn">Back</a>
+    </div>
+
+</div>
+
+</body>
+</html>

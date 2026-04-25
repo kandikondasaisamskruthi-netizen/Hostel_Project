@@ -46,17 +46,28 @@ def home():
 @app.route("/student_login", methods=["GET", "POST"])
 def student_login():
     if request.method == "POST":
-        username = request.form["username"]
+        roll_no = request.form["roll_no"]
         password = request.form["password"]
 
-        # Username and password should be same
-        if username == password:
-            session["student"] = username
+        conn = sqlite3.connect("database.db")
+        cur = conn.cursor()
+
+        cur.execute(
+            "SELECT * FROM students WHERE roll_no=? AND password=?",
+            (roll_no, password)
+        )
+
+        student = cur.fetchone()
+        conn.close()
+
+        if student:
+            session["student"] = roll_no
             return redirect("/student_dashboard")
         else:
-            return "Invalid Login"
+            return "Invalid Student Login"
 
-    return render_template("student_login.html")
+    return render_template("Student_login.html")
+
 
 
 # ---------------- STUDENT DASHBOARD ----------------
@@ -182,19 +193,12 @@ def admin_login():
         username = request.form["username"]
         password = request.form["password"]
 
-        if username == "admin@123" and password == "admin@123":
-            session["admin"] = username
+        if username == "admin" and password == "admin123":
             return redirect("/admin_dashboard")
         else:
-            return '''
-            <script>
-                alert("Invalid Admin Credentials");
-                window.location.href="/admin_login";
-            </script>
-            '''
+            return "Invalid Admin Login"
 
-    return render_template("admin_login.html")
-
+    return render_template("Admin_login.html")
 
 # ---------------- ADMIN DASHBOARD ----------------
 @app.route("/admin_dashboard")

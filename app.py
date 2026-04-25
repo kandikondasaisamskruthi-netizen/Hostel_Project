@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
+app.secret_key = "hostel_food_secret"
 
 
 # =========================
@@ -19,12 +20,12 @@ def home():
 @app.route('/student_login', methods=['GET', 'POST'])
 def student_login():
     if request.method == 'POST':
-        username = request.form.get('username')
+        roll_no = request.form.get('roll_no')
         password = request.form.get('password')
 
-        # Student login condition:
-        # Username and Password should be same
-        if username == password and username != "":
+        # Roll Number and Password should be same
+        if roll_no == password and roll_no != "":
+            session['student'] = roll_no
             return redirect(url_for('student_dashboard'))
         else:
             return "Invalid Student Login"
@@ -34,27 +35,73 @@ def student_login():
 
 @app.route('/student_dashboard')
 def student_dashboard():
+    if 'student' not in session:
+        return redirect(url_for('student_login'))
+
     return render_template("Student_dashboard.html")
 
 
-@app.route('/complaint')
+# =========================
+# STUDENT MODULES
+# =========================
+
+@app.route('/complaint', methods=['GET', 'POST'])
 def complaint():
+    if 'student' not in session:
+        return redirect(url_for('student_login'))
+
+    if request.method == 'POST':
+        return redirect(url_for('status'))
+
     return render_template("Complaint.html")
 
 
 @app.route('/menu')
 def menu():
-    return render_template("Menu.html")
+    if 'student' not in session:
+        return redirect(url_for('student_login'))
+
+    menu_data = [
+        ("Monday", "Idli", "Rice + Curry", "Chapati"),
+        ("Tuesday", "Dosa", "Biryani", "Fried Rice"),
+        ("Wednesday", "Upma", "Dal Rice", "Noodles"),
+        ("Thursday", "Poori", "Meals", "Chapati"),
+        ("Friday", "Pongal", "Pulihora", "Rice"),
+        ("Saturday", "Vada", "Veg Rice", "Paratha"),
+        ("Sunday", "Masala Dosa", "Special Meals", "Biryani")
+    ]
+
+    return render_template("Menu.html", menu_data=menu_data)
 
 
-@app.route('/rating')
+@app.route('/rating', methods=['GET', 'POST'])
 def rating():
+    if 'student' not in session:
+        return redirect(url_for('student_login'))
+
+    if request.method == 'POST':
+        return redirect(url_for('student_dashboard'))
+
     return render_template("Rating.html")
 
 
 @app.route('/status')
 def status():
-    return render_template("Status.html")
+    if 'student' not in session:
+        return redirect(url_for('student_login'))
+
+    data = [
+        ("Food Quality Issue", "Pending"),
+        ("Room is not clean", "Resolved")
+    ]
+
+    return render_template("status.html", data=data)
+
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 
 
 # =========================
@@ -67,9 +114,6 @@ def admin_login():
         username = request.form.get('username')
         password = request.form.get('password')
 
-        # Admin login condition:
-        # username = admin
-        # password = admin
         if username == "admin" and password == "admin":
             return redirect(url_for('admin_dashboard'))
         else:
@@ -83,14 +127,37 @@ def admin_dashboard():
     return render_template("Admin_Dashboard.html")
 
 
+# =========================
+# ADMIN MODULES
+# =========================
+
 @app.route('/view_complaints')
 def view_complaints():
-    return render_template("View_Complaints.html")
+    complaints = [
+        (1, "22B81A0501", "Food Quality Issue", "Pending"),
+        (2, "22B81A0502", "Room is not clean", "Resolved")
+    ]
+
+    return render_template("view_complaints.html", complaints=complaints)
 
 
-@app.route('/update_menu')
+@app.route('/resolve/<int:id>')
+def resolve(id):
+    return redirect(url_for('view_complaints'))
+
+
+@app.route('/update_menu', methods=['GET', 'POST'])
 def update_menu():
-    return render_template("Update_Menu.html")
+    ratings = [
+        (1, "22B81A0501", "Excellent"),
+        (2, "22B81A0502", "Good"),
+        (3, "22B81A0503", "Average")
+    ]
+
+    if request.method == 'POST':
+        return redirect(url_for('update_menu'))
+
+    return render_template("update_menu.html", ratings=ratings)
 
 
 # =========================

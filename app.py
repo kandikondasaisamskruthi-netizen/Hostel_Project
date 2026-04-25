@@ -77,7 +77,7 @@ def student_dashboard():
         return redirect("/student_login")
 
     return render_template(
-        "student_dashboard.html",
+        "Student_Dashboard.html",
         roll_no=session.get("student")
     )
 
@@ -158,7 +158,7 @@ def rating():
 
         return redirect("/student_dashboard")
 
-    return render_template("rating.html")
+    return render_template("Rating.html")
 
 
 # ---------------- STATUS ----------------
@@ -214,7 +214,7 @@ def admin_dashboard():
 
     conn.close()
 
-    return render_template("admin_dashboard.html", complaints=complaints)
+    return render_template("Admin_Dashboard.html", complaints=complaints)
 
 
 # ---------------- LOGOUT ----------------

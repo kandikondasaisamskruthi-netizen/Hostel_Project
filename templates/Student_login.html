@@ -1,25 +1,39 @@
-<link rel="stylesheet" href="/static/style.css">
+```html
+<!-- Student_login.html -->
 
-<div class="login-page">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>
 
-    <div class="login-box">
+<div class="navbar">
+    <h2>Student Login</h2>
+    <a href="/" class="logout-btn">Back</a>
+</div>
+
+<div class="dashboard-page">
+
+    <div class="form-box">
 
         <h1>Student Login</h1>
         <p>Username and Password should be same</p>
 
-        <form method="POST">
+        <form method="POST" class="login-form">
 
-            <input 
-                type="text" 
-                name="username" 
-                placeholder="Enter Username" 
+            <input
+                type="text"
+                name="roll_no"
+                placeholder="Enter Username"
                 required
             >
 
-            <input 
-                type="password" 
-                name="password" 
-                placeholder="Enter Password" 
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter Password"
                 required
             >
 
@@ -32,3 +46,7 @@
     </div>
 
 </div>
+
+</body>
+</html>
+```

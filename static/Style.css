@@ -569,3 +569,39 @@ select {
     padding: 14px 40px; /* slightly smaller button */
     font-size: 18px;    /* smaller text */
 }
+/* Student Login + Admin Login Form Fix */
+
+.login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.login-form input {
+    width: 260px;
+    height: 55px;
+    padding: 12px 18px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    outline: none;
+}
+
+.login-form button {
+    width: 140px;
+    height: 55px;
+    background: #1f3c88;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-form button:hover {
+    background: #162d66;
+}
